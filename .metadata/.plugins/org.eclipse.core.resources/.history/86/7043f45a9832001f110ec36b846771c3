@@ -1,0 +1,7 @@
+package com.springbootstudy.app.lombok;
+
+public class Member01 {
+	private String name;
+	private String gender;
+	private int age;
+}

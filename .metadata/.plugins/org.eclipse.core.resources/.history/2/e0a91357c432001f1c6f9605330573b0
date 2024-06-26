@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<h2>payment</h2>
+		<span>효자손</span>
+		<p>100</p>
+		<button>결제하기</button>
+	</body>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	<script>
+		IMP.init("imp62227326");
+
+		const price = document.querySelector("p").value;
+		const lectureId = document.querySelector("span").value;
+
+		const button = document.querySelector("button");
+		const onClickPay = () => {
+			alert('결제 버튼 누름.');
+			IMP.request_pay({
+				pg: "kakaopay",
+				pay_method: "card",
+				amount: price,
+				name: "라면",
+				lectureId: lectureId,
+				buyer_email: "gildong@gmail.com",
+		    buyer_name: "홍길동"
+			})
+		};
+
+		button.addEventListener("click", onClickPay);
+	</script>
+</html>

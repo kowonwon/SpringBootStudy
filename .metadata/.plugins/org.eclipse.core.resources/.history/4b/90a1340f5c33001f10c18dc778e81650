@@ -1,0 +1,5 @@
+package com.payment.app.repository;
+
+public class BoardRepository {
+
+}

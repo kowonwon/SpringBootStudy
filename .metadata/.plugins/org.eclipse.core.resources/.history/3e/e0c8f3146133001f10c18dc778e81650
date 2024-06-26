@@ -1,0 +1,5 @@
+package com.springbootstudy.app.controller;
+
+public class MemoController {
+
+}

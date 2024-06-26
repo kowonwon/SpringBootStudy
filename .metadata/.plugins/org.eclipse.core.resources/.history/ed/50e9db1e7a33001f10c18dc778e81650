@@ -1,0 +1,8 @@
+package com.springbootstudy.app.entity;
+import jakarta.persistence.Entity;
+
+@Entity
+@Builder
+public class MemoEntity {
+	
+}

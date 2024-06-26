@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<h2>payment</h2>
+		<span>효자손</span>
+		<p>100</p>
+		<button>결제하기</button>
+	</body>
+</html>

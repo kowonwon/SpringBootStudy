@@ -1,0 +1,8 @@
+package com.payment.app.domain;
+
+public class Lecture {
+	private int lectureId;
+	private String lectureTitle;
+	private String lectureDesc;
+	private String instructorId;
+}

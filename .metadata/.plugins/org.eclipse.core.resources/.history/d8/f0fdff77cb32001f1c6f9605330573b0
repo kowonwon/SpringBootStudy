@@ -1,0 +1,12 @@
+package com.payment.app.domain;
+
+import java.sql.Timestamp;
+
+public class Payment {
+	private String payCode;
+	private Timestamp payDate;
+	private String payWay;
+	private int price;
+	private String studentId;
+	private int lectureId;
+}

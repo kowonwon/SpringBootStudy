@@ -1,0 +1,29 @@
+package com.springbootstudy.app.controller;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.springbootstudy.app.domain.Memo;
+import com.springbootstudy.app.service.MemoService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequiredArgsConstructor // 생성자 넣고 Autowired까지 해줌.
+public class MemoController {
+	
+	private final MemoService memoService;
+	
+	@GetMapping("/memos")
+	public List<Memo> memoList() {
+		return memoService.memoList();
+	}
+	
+	@GetMapping("/memos/{no}")
+	public Memo getMemo(@PathVariable("no")int no) {
+		return memoService.getMemo(no);
+	}
+}

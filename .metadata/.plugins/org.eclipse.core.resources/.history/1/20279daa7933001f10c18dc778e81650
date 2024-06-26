@@ -1,0 +1,5 @@
+package com.springbootstudy.app.entity;
+
+public class MemoEntity {
+
+}

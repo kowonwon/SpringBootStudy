@@ -1,0 +1,15 @@
+package com.springbootstudy.app;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+public class FirstController {
+	
+	@GetMapping("/greeting") // RequestMapping을 세분화한 것
+	@ResponseBody // 반환된 결과를 응답에 포함시켜라.
+	public String greeting() {
+		return "안녕 스프링 부트 -- 변경";
+	}
+}

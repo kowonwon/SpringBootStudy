@@ -1,0 +1,7 @@
+package com.springbootstudy.app.lombok;
+
+public class Lomboktest02 {
+	public static void main(String[] args) {
+		
+	}
+}

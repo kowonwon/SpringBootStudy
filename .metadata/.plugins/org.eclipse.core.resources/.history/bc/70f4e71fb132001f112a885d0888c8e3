@@ -1,0 +1,13 @@
+package com.springbootstudy.app.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController // 자동으로 json으로 바꿈. RequestBody가 필요없음...
+public class SecondController {
+	@GetMapping("/")
+	public String main() {
+		return "main";
+	}
+}

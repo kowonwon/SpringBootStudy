@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--	
+	마이바티스 참고 사이트
+	  - http://blog.mybatis.org/
+	  - http://www.mybatis.org/mybatis-3/ko/index.html
+	  
+	@Mapper 애노테이션이 적용된 인터페이스와 맵퍼 XML파일은
+	namespace 속성으로 연결되기 때문에 맵퍼 XML의 namespace를
+	정의할 때 @Mapper 애노테이션이 적용된 맵퍼 인터페이스의
+	패키지를 포함한 완전한 클래스 이름과 동일하게 정의해야 한다.   
+-->
+<mapper namespace="com.springbootstudy.app.mapper.MemoMapper" >
+	<select id="findAll" resultType="Memo">
+		SELECT * FROM memo;
+	</select>
+	
+	<select id="findByNo" resultType="Memo">
+		SELECT * FROM memo
+		WHERE no = #{no}
+	</select>
+	
+	<insert id="addMemo" parameterType="Memo"
+		useGeneratedKeys="true" keyProperty="no">
+		INSERT INTO memo(title, content, writer, reg_date)
+		VALUES(#{title}, #{content}, #{writer}, NOW())
+	</insert>
+	
+	<update id="updateMemo" parameterType="Memo">
+		UPDATE memo
+		SET title=#{title}, content=#{content}, writer=#{writer}, reg_date=NOW()
+		WHERE no=#{no}
+	</update>
+
+	<delete id="deleteMemo" >
+		DELETE FROM memo		
+		WHERE no=#{no}
+	</delete>	
+</mapper>	
+
+
+
