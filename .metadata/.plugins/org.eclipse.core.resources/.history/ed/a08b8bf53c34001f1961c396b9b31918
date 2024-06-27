@@ -1,0 +1,10 @@
+package com.payment.app.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.payment.app.entitiy.Board;
+import com.payment.app.entitiy.Lecture;
+
+public interface LectureRepository extends JpaRepository<Lecture, Integer>{
+	
+}

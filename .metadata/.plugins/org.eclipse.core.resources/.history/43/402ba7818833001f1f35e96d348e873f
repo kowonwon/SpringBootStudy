@@ -1,0 +1,21 @@
+package com.payment.app.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.payment.app.service.BoardService;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class BoardController {
+	@Autowired
+	private BoardService boardService;
+	
+	@GetMapping({"/", "/boardList"})
+	public String boardList(Model model) {
+		model.addAttribute("bList", boardService.boardList());
+		return "main";
+	}
+}

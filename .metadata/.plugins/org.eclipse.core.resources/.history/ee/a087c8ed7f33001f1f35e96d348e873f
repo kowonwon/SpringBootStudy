@@ -1,0 +1,8 @@
+package com.payment.app.repository;
+
+import com.payment.app.domain.Board;
+import org.springframework.data.repository.Repository
+
+public class BoardRepository extends JpaRepository<Board, Integer>{
+	
+}

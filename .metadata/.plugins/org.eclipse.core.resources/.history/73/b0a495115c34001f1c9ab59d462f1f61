@@ -1,0 +1,39 @@
+package com.payment.app.domain;
+
+import java.sql.Timestamp;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name="payment")
+public class Payment {
+	@Id
+	private String payCode;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column
+	private Timestamp payDate;
+	@Column
+	private String payWay;
+	@Column
+	private int price;
+	@Column
+	private String studentId;
+	@Column
+	private int lectureId;
+	
+	private String title;
+}

@@ -1,0 +1,21 @@
+package com.springbootstudy.app.dto;
+
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data // getter setter 다 만듦.
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class MemoDTO {
+	//Entity와 호환되도록 만들기
+	private int no;
+	private String title;
+	private String wirter;
+	private String content;
+	private Date regDate;
+}
