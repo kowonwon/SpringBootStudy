@@ -86,6 +86,7 @@
 				lectureName.innerText = title0;
 				lecturePrice.innerText = price0;
 			}
+			
 			const lectureSelect0 = document.querySelector("#lectureSelect0");
 			lectureSelect0.addEventListener('click', onClickChange0);
 			
@@ -95,7 +96,6 @@
 			}
 			const lectureSelect1 = document.querySelector("#lectureSelect1");
 			lectureSelect1.addEventListener('click', onClickChange1);
-			
 		
 			// 결제
 			IMP.init("imp62227326");
@@ -109,25 +109,29 @@
 				IMP.request_pay({
 					pg: "kakaopay",
 					pay_method: "card",
+					notice_url: "https://whsec_emPdtTmC6znophoIwOdeM6OUbbD5WWqPJd46VNseH+o=",
 					amount: lecturePrice.innerText,
 					name: lectureName.innerText,
 					lectureId: "1001",
 					buyer_email: "gildong@gmail.com",
 			    	buyer_name: "홍길동"
+				}, function (rsp) {
+					if(rsp.success) {
+						console.log('결제 성공');
+						$.ajax({
+							url: '/savePayment',
+		                    type: 'POST',
+		                    contentType: 'application/json',
+		                    data: JSON.stringify({ title: lectureName.innerText, price: lecturePrice.innerText }),
+		                    success: function(response) {
+		                        alert('db 저장 성공');
+		                    },
+		                    error: function(error) {
+		                        alert('db 저장 실패');
+		                    }
+						})
+					}
 				});
-				
-				$.ajax({
-					url: '/savePayment',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ title: lectureName.innerText, price: lecturePrice.innerText }),
-                    success: function(response) {
-                        alert('결제 성공');
-                    },
-                    error: function(error) {
-                        alert('결제 실패');
-                    }
-				})
 			};
 	
 			payBt.addEventListener("click", onClickPay);
