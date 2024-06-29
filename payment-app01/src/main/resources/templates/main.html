@@ -69,11 +69,10 @@
 		</div>
 	</div>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-		<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+		<script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
 		<script>
 		
 			// 결제정보반영
-			
 			const lectureName = document.querySelector("#lectureName");
 			const lecturePrice = document.querySelector("#lecturePrice");
 			
@@ -96,45 +95,43 @@
 			}
 			const lectureSelect1 = document.querySelector("#lectureSelect1");
 			lectureSelect1.addEventListener('click', onClickChange1);
-		
-			// 결제
-			IMP.init("imp62227326");
-	
-			const price = document.querySelector("span").innerHTML;
-			const name = document.querySelector("h5").innerHTML;
-	
-			const payBt = document.querySelector("#payBt");
 			
-			const onClickPay = () => {
-				IMP.request_pay({
-					pg: "kakaopay",
-					pay_method: "card",
-					notice_url: "https://whsec_emPdtTmC6znophoIwOdeM6OUbbD5WWqPJd46VNseH+o=",
-					amount: lecturePrice.innerText,
-					name: lectureName.innerText,
-					lectureId: "1001",
-					buyer_email: "gildong@gmail.com",
-			    	buyer_name: "홍길동"
-				}, function (rsp) {
-					if(rsp.success) {
-						console.log('결제 성공');
-						$.ajax({
-							url: '/savePayment',
-		                    type: 'POST',
-		                    contentType: 'application/json',
-		                    data: JSON.stringify({ title: lectureName.innerText, price: lecturePrice.innerText }),
-		                    success: function(response) {
-		                        alert('db 저장 성공');
-		                    },
-		                    error: function(error) {
-		                        alert('db 저장 실패');
-		                    }
-						})
-					}
-				});
-			};
+			// 결제 기능
+			const payBt = document.querySelector("#payBt");
 	
+			const onClickPay = async () => {
+				
+				const price = document.querySelector("span").innerHTML;
+				const name = document.querySelector("h5").innerHTML;
+				
+				// paymentId 생성
+				const pid = crypto.randomUUID();
+				console.log("paymentId : " + pid);
+				
+				const response = await PortOne.requestPayment({
+					storeId: "store-a122dc6d-cdc8-4bd1-aa02-53489e0d886d",
+					channelKey: "channel-key-e373e32c-673e-47a0-acb3-e2d0b096bc6e",
+					paymentId: pid,
+					orderName: name,
+					totalAmount: price,
+					currency: "CURRENCY_KRW",
+					payMethod: "EASY_PAY"
+				})
+				
+				if (response.code != null) {
+					return alert(response.message);
+				}
+				
+				const notified = await fetch(`${SERVER_BASE_URL}/payment/complete`, {
+					method: "POST",
+					headers: {"Content-Type": "application/json"},
+					body: JSON.stringify({
+						paymentId: paymentId
+					})
+				})
+			}
 			payBt.addEventListener("click", onClickPay);
+	
 		</script>
 	</body>
 </html>
