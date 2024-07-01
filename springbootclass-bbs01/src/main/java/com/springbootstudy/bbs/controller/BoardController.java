@@ -19,7 +19,9 @@ public class BoardController {
 	@GetMapping({"/", "boardList"})
 	public String boardList(Model model) {
 		log.info("Controller : BoardList(Model model)");
+		
 		model.addAttribute("bList", boardService.boardList());
-		return "main";
+		
+		return "views/boardList";
 	}
 }
