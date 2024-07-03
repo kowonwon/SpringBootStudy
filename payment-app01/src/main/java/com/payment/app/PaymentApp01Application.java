@@ -12,9 +12,4 @@ public class PaymentApp01Application {
 	public static void main(String[] args) {
 		SpringApplication.run(PaymentApp01Application.class, args);
 	}
-
-	@Bean
-  public RestTemplate restTemplate(RestTemplateBuilder builder) {
-      return builder.build();
-  }
 }

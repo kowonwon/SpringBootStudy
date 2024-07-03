@@ -1,5 +1,0 @@
-package com.payment.app.repository;
-
-public class BoardRepository extends JpaRepository<Board, Integer>{
-	
-}

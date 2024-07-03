@@ -1,5 +1,0 @@
-package com.springbootstudy.app.mapper;
-
-public interface MemoMapper {
-
-}

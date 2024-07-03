@@ -23,8 +23,6 @@ import com.payment.app.service.OrderService;
 @RequestMapping("/patment")
 public class PaymentController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);
-	
 	@Value("${portone.api.secret}")
 	private String portoneApiSecret;
 	
@@ -61,10 +59,8 @@ public class PaymentController {
 			if (order.getAmount().equals(payment.getAmount().getTotal())) {
 				switch (payment.getStatus()) {
 					case "VIRTUAL_ACCOUNT_ISSUED":
-						logger.debug("Virtual account issued");
 						break;
 					case "PAID":
-						logger.debug("Payment completed");
 						break;
 				}
 			} else {
@@ -74,18 +70,7 @@ public class PaymentController {
 			
 			return ResponseEntity.ok("Payment processed successfully");
 		}catch (Exception e) {
-			logger.error("Payment verification failed", e);
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
-	
-//	@Autowired
-//  private PaymentService paymentService;
-
-//  @PostMapping("/savePayment")
-//  public ResponseEntity<String> savePayment(@RequestBody PaymentRequest paymentRequest) {
-//      paymentService.savePayment(paymentRequest);
-//      return ResponseEntity.ok("결제 성공");
-//  }
 }

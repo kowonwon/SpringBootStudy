@@ -12,39 +12,38 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 	<script>
-		IMP.init("imp62227326");
-
-		const price = document.querySelector("p").innerHTML;
-		const name = document.querySelector("span").innerHTML;
-
-		const button = document.querySelector("button");
-		const onClickPay = () => {
-			IMP.request_pay({
-				pg: "kakaopay",
-				pay_method: "card",
-				amount: price,
-				name: name,
-				lectureId: "1001",
-				buyer_email: "gildong@gmail.com",
-		    	buyer_name: "홍길동"
-			},
-			async function (response) {
-				if (response.error_code != null) {
-					return alert(`결제에 실패했습니다. 에러 내용 : ${response.error_msg}`);
+		$(function() {
+			IMP.init("imp62227326");
+			
+			// 결제 정보 반영
+			const price = document.querySelector("p").innerHTML;
+			const name = document.querySelector("span").innerHTML;
+			
+			async function requestPayment() {
+				const response = await PortOne.requestPayment({
+					storeId: "",
+					channelKey: "",
+					paymentId: `payment-${crypto.randomUUID()}`,
+					orderName: name,
+					totalAmount: price,
+					currency: "CURRENCY_KRW",
+					payMethod: "CARD"
+				});
+				
+				if(response.code != null) {
+					return alert(response.message);
 				}
 				
 				const notified = await fetch(`${SERVER_BASE_URL}/payment/complete`, {
 					method: "POST",
-					headers: {"Content-Type": "application/json"},
+					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
-						imp_uid: response.imp_uid,
-						merchant_uid: response.merchant_uid
+						paymentId: paymentId
 					})
 				})
 			}
-			);
-		};
-
-		button.addEventListener("click", onClickPay);
+	
+			button.addEventListener("click", response);
+		})
 	</script>
 </html>
