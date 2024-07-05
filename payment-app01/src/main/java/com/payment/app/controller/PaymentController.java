@@ -20,7 +20,7 @@ import com.payment.app.dto.PaymentResponse;
 import com.payment.app.service.OrderService;
 
 @RestController
-@RequestMapping("/patment")
+@RequestMapping("/payment")
 public class PaymentController {
 	
 	@Value("${portone.api.secret}")

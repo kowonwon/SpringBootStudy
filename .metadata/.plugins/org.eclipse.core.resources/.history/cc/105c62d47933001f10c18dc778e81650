@@ -1,6 +1,0 @@
-package com.springbootstudy.app.entity;
-
-@Entity
-public class MemoEntity {
-	
-}

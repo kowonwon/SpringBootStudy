@@ -1,7 +1,0 @@
-package com.payment.app.repository;
-
-import com.payment.app.domain.Board;
-
-public class BoardRepository extends JpaRepository<Board, Integer>{
-	
-}

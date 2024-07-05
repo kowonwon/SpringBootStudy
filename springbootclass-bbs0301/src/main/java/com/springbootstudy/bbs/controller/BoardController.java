@@ -31,7 +31,9 @@ public class BoardController {
 			RedirectAttributes reAttrs,
 			@RequestParam("no") int no,
 			@RequestParam("pass") String pass,
-			@RequestParam(value="pageNum", defaultValue="1") int pageNum) {
+			@RequestParam(value="pageNum", defaultValue="1") int pageNum,
+			@RequestParam(value="type", defaultValue="null") String type,
+			@RequestParam(value="keyword", defaultValue="null") String keyword) {
 		
 		BoardDTO board = boardService.getBoard(no, false);
 		
@@ -46,6 +48,12 @@ public class BoardController {
 		}
 		
 		boardService.deleteBoard(no);
+		
+		boolean searchOption = !(type.equals("null") || keyword.equals("null"));
+		if(searchOption) {
+			reAttrs.addAttribute("type", type);
+			reAttrs.addAttribute("keyword", keyword);
+		}
 		reAttrs.addAttribute("pageNum", pageNum);
 		return "redirect:boardList";
 	}
@@ -55,7 +63,9 @@ public class BoardController {
 			HttpServletResponse response,
 			PrintWriter out,
 			RedirectAttributes reAttrs,
-			@RequestParam(value="pageNum", defaultValue="1") int pageNum) {
+			@RequestParam(value="pageNum", defaultValue="1") int pageNum,
+			@RequestParam(value="type", defaultValue="null") String type,
+			@RequestParam(value="keyword", defaultValue="null") String keyword) {
 		
 		BoardDTO board = boardService.getBoard(dto.getNo(), false);
 		
@@ -71,6 +81,12 @@ public class BoardController {
 		
 		boardService.updateForm(dto);
 		
+		boolean searchOption = ! (type.equals("null") || keyword.equals("null"));
+		if(searchOption) {
+			reAttrs.addAttribute("type", type);
+			reAttrs.addAttribute("keyword", keyword);
+		}
+		
 		reAttrs.addAttribute("pageNum", pageNum);
 		return "redirect:boardList";
 	}
@@ -80,7 +96,9 @@ public class BoardController {
 			HttpServletResponse response, PrintWriter out,
 			@RequestParam("no") int no,
 			@RequestParam("pass") String pass,
-			@RequestParam(value="pageNum", defaultValue="1") int pageNum) {
+			@RequestParam(value="pageNum", defaultValue="1") int pageNum,
+			@RequestParam(value="type", defaultValue="null") String type,
+			@RequestParam(value="keyword", defaultValue="null") String keyword) {
 		
 		// DB -> PASS
 		BoardDTO dto = boardService.getBoard(no, false);
@@ -93,6 +111,13 @@ public class BoardController {
 			out.println("</script>");
 			
 			return null;
+		}
+		
+		boolean searchOption = ! type.equals("null") || keyword.equals("null");
+		model.addAttribute("searchOption", searchOption);
+		if(searchOption) {
+			model.addAttribute("type", type);
+			model.addAttribute("keyword", keyword);
 		}
 		
 		model.addAttribute("board", dto);
@@ -113,7 +138,17 @@ public class BoardController {
 	
 	@GetMapping("/boardDetail")
 	public String getBoard(Model model, @RequestParam("no") int no,
-			@RequestParam(value="pageNum", defaultValue="1") int pageNum) {
+			@RequestParam(value="pageNum", defaultValue="1") int pageNum,
+			@RequestParam(value="type", defaultValue="null") String type,
+			@RequestParam(value="keyword", defaultValue="null") String keyword) {
+		
+		boolean searchOption = ! (type.equals("null") || keyword.equals("null"));
+		
+		model.addAttribute("searchOption", searchOption);
+		if(searchOption) {
+			model.addAttribute("type", type);
+			model.addAttribute("keyword", keyword);
+		}
 		model.addAttribute("board", boardService.getBoard(no, true));
 		model.addAttribute("pageNum", pageNum);
 		return "views/boardDetail";

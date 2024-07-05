@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.springbootstudy.bbs.domain.Board;
 import com.springbootstudy.bbs.domain.BoardDTO;
+import com.springbootstudy.bbs.domain.QBoard;
 import com.springbootstudy.bbs.repository.BoardRepository;
 
 import jakarta.transaction.Transactional;
@@ -28,6 +29,7 @@ public class BoardService {
 	
 	@Transactional
 	public void deleteBoard(int no) {
+		
 //		boardRepository.deleteById(no);
 		boardRepository.deleteByNo(no);
 	}
@@ -74,8 +76,10 @@ public class BoardService {
 			
 		} else if(searchOption && type.equals("writer")) {
 			boardPage = boardRepository.findByWriterLike(pageable, "%" + keyword + "%");
+			
 		} else if(searchOption && type.equals("content")) {
 			boardPage = boardRepository.findByContentLike(pageable, "%" + keyword + "%");
+			
 		} else {
 			boardPage = boardRepository.findAll(pageable);
 		}
